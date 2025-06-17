@@ -1,15 +1,10 @@
-// main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  try {
-    const app = await NestFactory.create(AppModule);
-    app.enableCors();
-    await app.listen(3000);
-    console.log('Приложение успешно запущено на порту 3000');
-  } catch (error) {
-    console.error('Ошибка при запуске приложения:', error);
-  }
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(3000);
 }
 bootstrap();
